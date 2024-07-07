@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private Vector3 perfectSwingDirection = new Vector3(1f, 1f, 0f);
+    private Vector3 perfectSwingDirection = new Vector3(0.5f, 0.5f, 0f);
     [SerializeField]
     private float perfectSwingSpeedGain = 5f;
     [SerializeField]
@@ -75,10 +75,11 @@ public class PlayerController : MonoBehaviour
         isSwinging = false;
         lineRenderer.enabled = false;
 
-        // find perfect swing
-        Vector3 dir = (tetherPoint - transform.position).normalized;
-        float perfectSwingFactor = Vector3.Dot(dir, perfectSwingDirection);
-        // TODO: implement perfect swing bonus
+        // TODO: implement perfect swing
+        float perfectSwingFactor = Vector3.Dot(transform.forward, perfectSwingDirection);
+        //speed *= Mathf.Max(perfectSwingFactor, 1f) * perfectSwingSpeedGain;
+
+        Debug.Log(perfectSwingFactor);
     }
 
     private void Swing()
@@ -89,8 +90,8 @@ public class PlayerController : MonoBehaviour
 
         // TODO: accelerate slower / deccelerate past certain point ?
         // accelerate speed while swinging
-        speed += swingAcceleration * Time.deltaTime;
-        Debug.Log(speed);
+        //speed += swingAcceleration * Time.deltaTime;
+        //Debug.Log(speed);
 
         // set swing direction
         Vector3 tetherPointDir = (tetherPoint - transform.position);
