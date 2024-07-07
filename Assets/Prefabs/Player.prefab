@@ -136,7 +136,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &6943338559053205024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raycastDirection: {x: 0.75, y: 1, z: 0}
   perfectSwingDirection: {x: 1, y: 1, z: 0}
-  perfectSwingSpeedGain: 5
+  perfectSwingSpeedGain: 1
   startVelocity: {x: 10, y: 0, z: 0}
   gravity: -20
   swingAcceleration: 1
