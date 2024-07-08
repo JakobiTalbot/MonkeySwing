@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 startVelocity = new Vector3(10f, 0f, 0f);
     [SerializeField]
     float gravity = -9.8f;
+    [SerializeField]
+    private int ceilingBoundsLayer = 6;
 
     private LineRenderer lineRenderer;
 
@@ -45,9 +47,8 @@ public class PlayerController : MonoBehaviour
         else // only do gravity if not swinging
             velocity.y += gravity * Time.deltaTime;
 
-        // move
         transform.position += velocity * Time.deltaTime;
-        // rotate forwards
+        // rotate forwards to direction player is moving
         transform.LookAt(transform.position + velocity.normalized);
     }
 
@@ -64,21 +65,24 @@ public class PlayerController : MonoBehaviour
 
     private void StartSwing()
     {
-        // can probably do this without raycasting, not sure if worth it though
         // raycast for grapple point
         RaycastHit hit;
-        Vector3 dir = Vector3.Cross(velocity.normalized, Vector3.back); // get raycast direction upwards of player velocity direction
-        dir.x = Mathf.Max(dir.x, 0f); // don't let player grapple behind them
-        Physics.Raycast(transform.position, dir, out hit, 100f, 1 << 6); // ceiling bounds have layer 6
+        // get raycast direction upwards of player velocity direction
+        Vector3 dir = Vector3.Cross(velocity.normalized, Vector3.back);
+        // don't let player grapple behind them
+        dir.x = Mathf.Max(dir.x, 0f);
+        Physics.Raycast(transform.position, dir, out hit, 100f, 1 << ceilingBoundsLayer);
         tetherPoint = hit.point;
 
-        lineRenderer.enabled = true; // show rope
+        // show rope
+        lineRenderer.enabled = true;
         isSwinging = true;
     }
 
     private void StopSwing()
     {
         isSwinging = false;
+        // hide rope
         lineRenderer.enabled = false;
 
         // TODO: implement perfect swing

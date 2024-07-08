@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public void GameOver(int score)
     {
         gameOverText.SetActive(true);
+        // display score in UI
         gameOverText.GetComponent<TextMeshProUGUI>().text += score.ToString();
     }
 
