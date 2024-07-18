@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private bool isSwinging = false;
     private Vector3 tetherPoint;
     private Vector3 velocity;
-    private bool gameOver = false;
+    private bool doUpdate = true;
 
     private void Start()
     {
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (gameOver)
+        if (!doUpdate)
             return;
 
         // start/stop swinging
@@ -96,6 +96,9 @@ public class PlayerController : MonoBehaviour
         Vector3 tetherPointDir = (tetherPoint - transform.position);
         velocity = Vector3.Cross(Vector3.back, tetherPointDir).normalized * velocity.magnitude;
     }
+    
+    public void AddVelocity(Vector3 v) => velocity += v;
+    public void MultiplyVelocityX(float factor) => velocity.x *= factor;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -103,7 +106,7 @@ public class PlayerController : MonoBehaviour
         if (other.GetComponentInParent<BackgroundMover>())
         {
             GameManager.instance.GameOver((int)transform.position.x);
-            gameOver = true;
+            doUpdate = false;
         }
     }
 }
