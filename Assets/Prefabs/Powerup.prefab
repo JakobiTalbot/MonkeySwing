@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8702471331463210731}
   - component: {fileID: 8590202847394783646}
   m_Layer: 0
-  m_Name: Hazard1
+  m_Name: Powerup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ba4ff7ed9e0b4b64582368a81f726127, type: 2}
+  - {fileID: 2100000, guid: 4b5d0548797f7b9499b397ddf81b031c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -102,7 +102,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -118,4 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61078fa2684303e408060902407944bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerEffect: {fileID: 11400000, guid: 9dac7026986e4bc46aa059ff152f1010, type: 2}
+  playerEffects:
+  - {fileID: 11400000, guid: 14c7fbbcc5e547b46b01cd433cf9dbe4, type: 2}
+  randMoveHeight: {x: -8, y: 8}
+  randMoveDistance: {x: 100, y: 300}

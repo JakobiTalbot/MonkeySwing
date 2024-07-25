@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3415abf7589974a45aa347d55739eb37, type: 3}
   m_Name: Hazard1
   m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: ba4ff7ed9e0b4b64582368a81f726127, type: 2}
+  mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   speedMultiplier: 0.8
   scoreGain: 0
