@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2757474493396033756}
   - component: {fileID: 2373493174374818501}
   m_Layer: 0
-  m_Name: PickupSpawner
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,11 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01b1fa7d64746544a1f781781547db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnOffset: {x: 50, y: 0, z: 0}
+  ySpawnMinMax: {x: -8, y: 8}
   distanceBetweenPickupSpawns: 100
   pickups:
   - {fileID: 7984917423464296059, guid: bc5303c1337e44f45aa6aa971fc4495b, type: 3}
-  spawnOffset: {x: 50, y: 0, z: 0}
-  ySpawnMinMax: {x: -8, y: 8}
+  distanceBetweenHazardSpawns: 100
+  hazards:
+  - {fileID: 7984917423464296059, guid: 23f6190cfa578e942987e9f55670aaed, type: 3}
 --- !u!1 &3454512708535794610
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,12 +10,12 @@ public class Spawner : MonoBehaviour
     private Vector2 ySpawnMinMax = new Vector2(-8f, 8f);
     [Header("Pickups")]
     [SerializeField]
-    private float distanceBetweenPickupSpawns = 100f;
+    private Vector2 randDistanceBetweenPickupSpawns = new Vector2(100f, 500f);
     [SerializeField]
     private GameObject[] pickups;
     [Header("Hazards")]
     [SerializeField]
-    private float distanceBetweenHazardSpawns = 100f;
+    private Vector2 randDistanceBetweenHazardSpawns = new Vector2(100f, 500f);
     [SerializeField]
     private GameObject[] hazards;
 
@@ -23,10 +23,14 @@ public class Spawner : MonoBehaviour
     private float furthestX;
     private float distanceTravelledSinceLastPickupSpawn = 0f;
     private float distanceTravelledSinceLastHazardSpawn = 0f;
+    private float nextDistanceToPickupSpawn;
+    private float nextDistanceToHazardSpawn;
 
     private void Start()
     {
         furthestX = transform.position.x;
+        nextDistanceToPickupSpawn = Random.Range(randDistanceBetweenPickupSpawns.x, randDistanceBetweenPickupSpawns.y);
+        nextDistanceToHazardSpawn = Random.Range(randDistanceBetweenHazardSpawns.x, randDistanceBetweenHazardSpawns.y);
     }
 
     private void Update()
@@ -40,9 +44,9 @@ public class Spawner : MonoBehaviour
         distanceTravelledSinceLastHazardSpawn += deltaX;
 
         // spawn pickup if travelled set distance
-        if (distanceTravelledSinceLastPickupSpawn > distanceBetweenPickupSpawns)
+        if (distanceTravelledSinceLastPickupSpawn > nextDistanceToPickupSpawn)
             SpawnPickup();
-        if (distanceTravelledSinceLastHazardSpawn > distanceBetweenPickupSpawns)
+        if (distanceTravelledSinceLastHazardSpawn > nextDistanceToHazardSpawn)
             SpawnHazard();
 
         furthestX = transform.position.x;
@@ -59,6 +63,7 @@ public class Spawner : MonoBehaviour
         int i = Random.Range(0, pickups.Length);
 
         Instantiate(pickups[i], spawnPos, pickups[i].transform.rotation);
+        nextDistanceToPickupSpawn = Random.Range(randDistanceBetweenPickupSpawns.x, randDistanceBetweenPickupSpawns.y);
     }
 
     private void SpawnHazard()
@@ -72,5 +77,6 @@ public class Spawner : MonoBehaviour
         int i = Random.Range(0, pickups.Length);
 
         Instantiate(hazards[i], spawnPos, hazards[i].transform.rotation);
+        nextDistanceToPickupSpawn = Random.Range(randDistanceBetweenPickupSpawns.x, randDistanceBetweenPickupSpawns.y);
     }
 }
