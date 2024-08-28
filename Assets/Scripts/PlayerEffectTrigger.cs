@@ -16,13 +16,17 @@ public class PlayerEffectTrigger : MonoBehaviour
 
     private void Start()
     {
+        // get reference to player
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+        // set starting poisition
         Vector3 newPos = transform.position;
         newPos.x += Random.Range(randMoveDistance.x, randMoveDistance.y);
         newPos.y += Random.Range(randMoveHeight.x, randMoveHeight.y);
 
         transform.position = newPos;
 
+        // enable box collider after moving
         GetComponent<BoxCollider>().enabled = true;
     }
 

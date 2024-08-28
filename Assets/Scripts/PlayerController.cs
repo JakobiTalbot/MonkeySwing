@@ -16,6 +16,10 @@ public class PlayerController : MonoBehaviour
     float gravity = -9.8f;
     [SerializeField]
     private int ceilingBoundsLayer = 6;
+    [SerializeField]
+    private float grapplePointHeight = -1f;
+    [SerializeField]
+    private Animator animator;
 
     private LineRenderer lineRenderer;
 
@@ -57,7 +61,7 @@ public class PlayerController : MonoBehaviour
         // set rope points if swinging
         if (isSwinging)
         {
-            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(0, transform.position + transform.up * grapplePointHeight);
             lineRenderer.SetPosition(1, tetherPoint);
         }
 
@@ -77,13 +81,15 @@ public class PlayerController : MonoBehaviour
         // show rope
         lineRenderer.enabled = true;
         isSwinging = true;
+        animator.SetBool("isSwinging", true);
     }
 
     private void StopSwing()
     {
-        isSwinging = false;
         // hide rope
         lineRenderer.enabled = false;
+        isSwinging = false;
+        animator.SetBool("isSwinging", false);
 
         // TODO: implement perfect swing
         //float perfectSwingFactor = Vector3.Dot(transform.forward, perfectSwingDirection);
@@ -97,7 +103,6 @@ public class PlayerController : MonoBehaviour
         velocity = Vector3.Cross(Vector3.back, tetherPointDir).normalized * velocity.magnitude;
     }
     
-    public void AddVelocity(Vector3 v) => velocity += v;
     public void MultiplyVelocityX(float factor) => velocity.x *= factor;
 
     private void OnTriggerEnter(Collider other)
@@ -107,6 +112,7 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.instance.GameOver((int)transform.position.x);
             doUpdate = false;
+            animator.SetBool("isDead", true);
         }
     }
 }
