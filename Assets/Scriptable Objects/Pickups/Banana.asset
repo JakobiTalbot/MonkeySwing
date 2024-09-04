@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3415abf7589974a45aa347d55739eb37, type: 3}
   m_Name: Banana
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 4b5d0548797f7b9499b397ddf81b031c, type: 2}
-  mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  material: {fileID: -6538903991835684241, guid: ac711cf6cf7fbf346873ab7d9954afd9, type: 3}
+  mesh: {fileID: -8457624670379154836, guid: ac711cf6cf7fbf346873ab7d9954afd9, type: 3}
   speedMultiplier: 1.1
   scoreGain: 100

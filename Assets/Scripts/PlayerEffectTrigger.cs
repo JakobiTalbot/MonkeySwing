@@ -12,19 +12,19 @@ public class PlayerEffectTrigger : MonoBehaviour
     private Vector2 randMoveDistance = new Vector2(100f, 500f);
 
     private PlayerController player;
-    private int currentEffectIndex;
+    private int currentEffectIndex = -1;
+    private MeshRenderer meshRenderer;
+    private MeshFilter meshFilter;
 
     private void Start()
     {
-        // get reference to player
+        // get references
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        meshRenderer = GetComponent<MeshRenderer>();
+        meshFilter = GetComponent<MeshFilter>();
 
-        // set starting poisition
-        Vector3 newPos = transform.position;
-        newPos.x += Random.Range(randMoveDistance.x, randMoveDistance.y);
-        newPos.y += Random.Range(randMoveHeight.x, randMoveHeight.y);
-
-        transform.position = newPos;
+        // initialise object
+        Reset();
 
         // enable box collider after moving
         GetComponent<BoxCollider>().enabled = true;
@@ -35,32 +35,34 @@ public class PlayerEffectTrigger : MonoBehaviour
         if (other.GetComponent<PlayerController>())
         {
             playerEffects[currentEffectIndex].ActivateEffect(player);
-            Move(player);
-            SetRandomPlayerEffect();
+            Reset();
             // pickup feedback here
         }
         else if (other.CompareTag("PickupBounds"))
-        {
-            Move(player);
-            SetRandomPlayerEffect();
-        }
+            Reset();
     }
 
-    private void Move(PlayerController player)
+    private void Reset()
     {
         // get new position
-        Vector3 newPos = player.transform.position;
-        newPos.x += Random.Range(randMoveDistance.x, randMoveDistance.y);
-        newPos.y += Random.Range(randMoveHeight.x, randMoveHeight.y);
+        Vector3 newPos = Vector3.zero;
+        newPos.x = player.transform.position.x + Random.Range(randMoveDistance.x, randMoveDistance.y);
+        newPos.y = Random.Range(randMoveHeight.x, randMoveHeight.y);
 
         transform.position = newPos;
-    }
 
-    private void SetRandomPlayerEffect()
-    {
         int i = Random.Range(0, playerEffects.Length);
         // update visuals if the new player effect is different from current
         if (i != currentEffectIndex)
-            playerEffects[currentEffectIndex].SetVisuals(gameObject);
+            UpdateVisuals(i);
+    }
+
+    private void UpdateVisuals(int i)
+    {
+        meshRenderer.material = playerEffects[i].GetMaterial();
+        meshFilter.mesh = playerEffects[i].GetMesh();
+        // TODO: update scale + rotation + collider size? probably better way
+
+        currentEffectIndex = i;
     }
 }

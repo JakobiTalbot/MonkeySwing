@@ -11,9 +11,6 @@ public abstract class PlayerEffect : ScriptableObject
 
     public abstract void ActivateEffect(PlayerController player);
 
-    public void SetVisuals(GameObject target)
-    {
-        target.GetComponent<MeshRenderer>().material = material;
-        target.GetComponent<MeshFilter>().mesh = mesh;
-    }
+    public Material GetMaterial() => material;
+    public Mesh GetMesh() => mesh;
 }
